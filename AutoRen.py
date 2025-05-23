@@ -2,7 +2,7 @@ import pandas as pd
 from docx import Document
 import os
 
-def fill_invitation(template_path, output_path, data):
+def fill_lab_report(template_path, output_path, data):
     doc = Document(template_path)
 
     # Reemplazar en párrafos generales
@@ -24,7 +24,7 @@ def fill_invitation(template_path, output_path, data):
 
     doc.save(output_path)
 
-def generate_invitation_from_csv(csv_path, template_path):
+def generate_lab_reports_from_csv(csv_path, template_path):
     df = pd.read_csv(csv_path)
     os.makedirs("output", exist_ok=True)
     
@@ -39,10 +39,10 @@ def generate_invitation_from_csv(csv_path, template_path):
             '[Email]': row['email'],
             '[Proyecto]': row['proyecto'],
         }
-        output_path = f"output/invitation_{idx+1}.docx"
-        fill_invitation(template_path, output_path, data)
+        output_path = f"output/informe_laboratorio_{idx+1}.docx"
+        fill_lab_report(template_path, output_path, data)
 
 if __name__ == "__main__":
     csv_path = 'contacts.csv'
     template_path = 'template.docx'
-    generate_invitation_from_csv(csv_path, template_path)
+    generate_lab_reports_from_csv(csv_path, template_path)
