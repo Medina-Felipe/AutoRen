@@ -1,2 +1,0 @@
-# AutoRen
-Proyecto de AutoRen
