@@ -16,24 +16,36 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        file = request.files.get('file')
-        if not file or file.filename == '':
-            flash('Debe seleccionar un archivo PDF.')
+        pdf_file = request.files.get('file_pdf')
+        excel_file = request.files.get('file_excel')
+
+        if not pdf_file or pdf_file.filename == '' or not allowed_file(pdf_file.filename):
+            flash('Debe subir un archivo PDF válido.')
             return redirect(request.url)
 
-        if allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
+        if not excel_file or excel_file.filename == '':
+            flash('Debe subir un archivo Excel.')
+            return redirect(request.url)
 
-            success, output_filename = process_single_order(filepath, TEMPLATE_PATH)
-            if success:
-                return send_file(output_filename, as_attachment=True)
-            else:
-                flash('Error procesando el PDF.')
-                return redirect(request.url)
+        pdf_filename = secure_filename(pdf_file.filename)
+        pdf_path = os.path.join(app.config['UPLOAD_FOLDER'], pdf_filename)
+        pdf_file.save(pdf_path)
 
-    return render_template('index.html')
+        excel_filename = secure_filename(excel_file.filename)
+        excel_path = os.path.join(app.config['UPLOAD_FOLDER'], excel_filename)
+        excel_file.save(excel_path)
+
+        # Aquí solo procesamos el PDF, puedes usar excel_path si lo necesitas
+        success, output_filename = process_single_order(pdf_path, TEMPLATE_PATH)
+
+        if success:
+            return send_file(output_filename, as_attachment=True)
+        else:
+            flash('Error procesando el informe.')
+            return redirect(request.url)
+
+    return render_template('home.html')
+
 
 if __name__ == '__main__':
     os.makedirs('uploads', exist_ok=True)

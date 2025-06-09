@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>AutoRen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function checkFiles() {
+            const pdf = document.getElementById('file-pdf').files.length > 0;
+            const excel = document.getElementById('file-excel').files.length > 0;
+            document.getElementById('submit-btn').disabled = !(pdf && excel);
+        }
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Logo_Nuevo_Ufro.png/1043px-Logo_Nuevo_Ufro.png" width="100">
+        </div>
+        <button>AutoRen: automatizador de informe</button>
+        <button>Historial de informe creados</button>
+        <button class="exit">Salir</button>
+    </div>
+
+    <div class="main">
+        <div class="top-bar">
+            <img src="https://bioren.ufro.cl/wp-content/uploads/2022/04/logo-BIOREN-UFRO-02.png" height="40">
+        </div>
+
+        <h2>AutoRen</h2>
+        <p><strong>Sube ambos archivos</strong></p>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="upload-section">
+
+                <!-- PDF -->
+                <label class="upload-box" for="file-pdf">
+                    <input type="file" id="file-pdf" name="file_pdf" accept=".pdf" hidden onchange="checkFiles()">
+                    <div class="upload-label">Archivo PDF</div>
+                </label>
+
+                <!-- Excel -->
+                <label class="upload-box" for="file-excel">
+                    <input type="file" id="file-excel" name="file_excel" accept=".xlsx,.xls" hidden onchange="checkFiles()">
+                    <div class="upload-label">Archivo Excel</div>
+                </label>
+
+            </div>
+
+            <button id="submit-btn" class="upload-button" type="submit" disabled>Generar Informe</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul style="color: red; margin-top: 20px;">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
