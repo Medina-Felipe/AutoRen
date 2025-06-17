@@ -55,12 +55,11 @@ body {
 .main {
   flex-grow: 1;
   background-color: white;
-  padding: 30px 50px;
 }
 
 /* Barra superior */
 .top-bar {
-  height: 50px;
+  height: 15%;
   background-color: #7f7f7f;
   display: flex;
   justify-content: flex-end;
@@ -71,17 +70,21 @@ body {
 
 /* Títulos */
 .main h2 {
+  font-size: 50px;
+  margin-left: 20px;
   margin-bottom: 10px;
   color: #333;
 }
 
 .main p {
+  margin-left: 8%;
   margin-bottom: 30px;
   font-weight: bold;
 }
 
 /* Sección de carga */
 .upload-section {
+  padding-top: 10%;
   display: flex;
   gap: 60px;
   justify-content: center;
