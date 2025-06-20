@@ -10,6 +10,7 @@
             const excel = document.getElementById('file-excel').files.length > 0;
             document.getElementById('submit-btn').disabled = !(pdf && excel);
         }
+
         //Nombre de archivo debajo del botón
         function handleFileChange(inputId, labelId) {
             const input = document.getElementById(inputId);
@@ -21,6 +22,15 @@
                 label.textContent = "Archivo sin subir";
                 label.classList.remove("selected");
             }
+        }
+
+        function clearFile(inputId, labelId) {
+            const input = document.getElementById(inputId);
+            const label = document.getElementById(labelId);
+            input.value = '';
+            label.textContent = "Archivo sin subir";
+            label.classList.remove("selected");
+            checkFiles();
         }
     </script>
 </head>
@@ -52,6 +62,7 @@
                         <div class="upload-label">Archivo PDF</div>
                     </label>
                     <div id="pdf-name" class="file-name">Archivo sin subir</div>
+                    <button type="button" onclick="clearFile('file-pdf', 'pdf-name')">Eliminar archivo</button>
                 </div>
 
                 <!-- Excel -->
@@ -61,6 +72,7 @@
                         <div class="upload-label">Archivo Excel</div>
                     </label>
                     <div id="excel-name" class="file-name">Archivo sin subir</div>
+                    <button type="button" onclick="clearFile('file-excel', 'excel-name')">Eliminar archivo</button>
                 </div>
 
             </div>
