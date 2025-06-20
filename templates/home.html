@@ -10,6 +10,18 @@
             const excel = document.getElementById('file-excel').files.length > 0;
             document.getElementById('submit-btn').disabled = !(pdf && excel);
         }
+        //Nombre de archivo debajo del botón
+        function handleFileChange(inputId, labelId) {
+            const input = document.getElementById(inputId);
+            const label = document.getElementById(labelId);
+            if (input.files.length > 0) {
+                label.textContent = `✅ Archivo seleccionado: ${input.files[0].name}`;
+                label.classList.add("selected");
+            } else {
+                label.textContent = "Archivo sin subir";
+                label.classList.remove("selected");
+            }
+        }
     </script>
 </head>
 <body>
@@ -34,22 +46,27 @@
             <div class="upload-section">
 
                 <!-- PDF -->
-                <label class="upload-box" for="file-pdf">
-                    <input type="file" id="file-pdf" name="file_pdf" accept=".pdf" hidden onchange="checkFiles()">
-                    <div class="upload-label">Archivo PDF</div>
-                </label>
+                <div class="upload-container">
+                    <label class="upload-box" for="file-pdf">
+                        <input type="file" id="file-pdf" name="file_pdf" accept=".pdf" hidden onchange="handleFileChange('file-pdf', 'pdf-name'); checkFiles()">
+                        <div class="upload-label">Archivo PDF</div>
+                    </label>
+                    <div id="pdf-name" class="file-name">Archivo sin subir</div>
+                </div>
 
                 <!-- Excel -->
-                <label class="upload-box" for="file-excel">
-                    <input type="file" id="file-excel" name="file_excel" accept=".xlsx,.xls" hidden onchange="checkFiles()">
-                    <div class="upload-label">Archivo Excel</div>
-                </label>
+                <div class="upload-container">
+                    <label class="upload-box" for="file-excel">
+                        <input type="file" id="file-excel" name="file_excel" accept=".xlsx,.xls" hidden onchange="handleFileChange('file-excel', 'excel-name'); checkFiles()">
+                        <div class="upload-label">Archivo Excel</div>
+                    </label>
+                    <div id="excel-name" class="file-name">Archivo sin subir</div>
+                </div>
 
             </div>
 
             <button id="submit-btn" class="upload-button" type="submit" disabled>Generar Informe</button>
         </form>
-
 
         {% with messages = get_flashed_messages() %}
         {% if messages %}

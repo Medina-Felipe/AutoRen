@@ -145,3 +145,27 @@ form {
   background-color: #888;
   cursor: not-allowed;
 }
+
+/* Nombre de archivo debajo del botón */
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.file-name {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  min-height: 36px;
+  max-width: 280px;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.file-name.selected {
+  color: green;
+  font-weight: bold;
+}
