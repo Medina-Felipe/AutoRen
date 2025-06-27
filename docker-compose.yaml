@@ -1,0 +1,14 @@
+services:
+  autoren_service:
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+    container_name: autoren_service_container
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/data
+
+volumes:
+  data:
+    driver: local
