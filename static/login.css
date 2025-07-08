@@ -1,0 +1,83 @@
+/* Estilo general del body para el login */
+.login-body {
+    background-color: #f2f5f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor principal */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Caja de login */
+.login-box {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Título */
+.login-box h2 {
+    text-align: center;
+    color: #003b8b;
+    margin-bottom: 10px;
+}
+
+/* Mensaje de error */
+.error-message {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Campos de formulario */
+.login-box label {
+    font-weight: bold;
+    color: #333;
+    margin-top: 8px;
+}
+
+.login-box input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.login-box input:focus {
+    border-color: #003b8b;
+    outline: none;
+}
+
+/* Botón */
+.login-box button {
+    background-color: #003b8b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.login-box button:hover {
+    background-color: #0053c0;
+}
