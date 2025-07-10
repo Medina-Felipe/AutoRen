@@ -1,193 +1,221 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>AutoRen</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
-  <script>
-    function checkFiles() {
-      const pdf = document.getElementById('file-pdf').files.length > 0;
-      const word = document.getElementById('file-excel').files.length > 0;
-      document.getElementById('submit-btn').disabled = !(pdf && word);
-    }
-
-    function handleFileChange(inputId, labelId) {
-      const input = document.getElementById(inputId);
-      const label = document.getElementById(labelId);
-      if (input.files.length) {
-        label.textContent = `✅ Archivo seleccionado: ${input.files[0].name}`;
-        label.classList.add("selected");
-      } else {
-        label.textContent = "Archivo sin subir";
-        label.classList.remove("selected");
-      }
-    }
-
-    function clearFile(inputId, labelId) {
-      const input = document.getElementById(inputId);
-      const label = document.getElementById(labelId);
-      input.value = '';
-      label.textContent = "Archivo sin subir";
-      label.classList.remove("selected");
-      checkFiles();
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      // Drag & drop PDF
-      const pdfDrop = document.getElementById('pdf-drop');
-      const pdfInput = document.getElementById('file-pdf');
-
-      pdfDrop.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        pdfDrop.style.backgroundColor = '#8195b2';
-      });
-
-      pdfDrop.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        pdfDrop.style.backgroundColor = '';
-      });
-
-      pdfDrop.addEventListener('drop', (e) => {
-        e.preventDefault();
-        pdfDrop.style.backgroundColor = '';
-
-        const files = e.dataTransfer.files;
-        if (files.length && files[0].type === 'application/pdf') {
-          const dt = new DataTransfer();
-          dt.items.add(files[0]);
-          pdfInput.files = dt.files;
-          handleFileChange('file-pdf', 'pdf-name');
-          checkFiles();
-        } else {
-          alert('Por favor, arrastra un archivo PDF válido.');
+    <meta charset="UTF-8">
+    <title>AutoRen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <style>
+        .oculto {
+            display: none !important;
         }
-      });
-
-      // Drag & drop Word
-      const wordDrop = document.getElementById('word-drop');
-      const wordInput = document.getElementById('file-excel');
-
-      wordDrop.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        wordDrop.style.backgroundColor = '#8195b2';
-      });
-
-      wordDrop.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        wordDrop.style.backgroundColor = '';
-      });
-
-      wordDrop.addEventListener('drop', (e) => {
-        e.preventDefault();
-        wordDrop.style.backgroundColor = '';
-
-        const files = e.dataTransfer.files;
-        const validTypes = [
-          'application/vnd.ms-excel', 
-          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-        ];
-
-        if (files.length && validTypes.includes(files[0].type)) {
-          const dt = new DataTransfer();
-          dt.items.add(files[0]);
-          wordInput.files = dt.files;
-          handleFileChange('file-excel', 'excel-name');
-          checkFiles();
-        } else {
-          alert('Por favor, arrastra un archivo Word válido (.doc o .docx).');
+    </style>
+    <script>
+        function checkFiles() {
+            const pdf = document.getElementById('file-pdf').files.length > 0;
+            const excel = document.getElementById('file-excel').files.length > 0;
+            document.getElementById('submit-btn').disabled = !(pdf && excel);
         }
-      });
-    });
-  </script>
+
+        function handleFileChange(inputId, labelId) {
+            const input = document.getElementById(inputId);
+            const label = document.getElementById(labelId);
+            if (input.files.length) {
+                label.textContent = `✅ Archivo seleccionado: ${input.files[0].name}`;
+                label.classList.add("selected");
+            } else {
+                label.textContent = "Archivo sin subir";
+                label.classList.remove("selected");
+            }
+        }
+
+        function clearFile(inputId, labelId) {
+            const input = document.getElementById(inputId);
+            const label = document.getElementById(labelId);
+            input.value = '';
+            label.textContent = "Archivo sin subir";
+            label.classList.remove("selected");
+            checkFiles();
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const pdfDrop = document.getElementById('pdf-drop');
+            const pdfInput = document.getElementById('file-pdf');
+
+            pdfDrop.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                pdfDrop.style.backgroundColor = '#8195b2';
+            });
+
+            pdfDrop.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                pdfDrop.style.backgroundColor = '';
+            });
+
+            pdfDrop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                pdfDrop.style.backgroundColor = '';
+                const files = e.dataTransfer.files;
+                if (files.length && files[0].type === 'application/pdf') {
+                    const dt = new DataTransfer();
+                    dt.items.add(files[0]);
+                    pdfInput.files = dt.files;
+                    handleFileChange('file-pdf', 'pdf-name');
+                    checkFiles();
+                } else {
+                    alert('Por favor, arrastra un archivo PDF válido.');
+                }
+            });
+
+            const excelDrop = document.getElementById('excel-drop');
+            const excelInput = document.getElementById('file-excel');
+
+            excelDrop.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                excelDrop.style.backgroundColor = '#8195b2';
+            });
+
+            excelDrop.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                excelDrop.style.backgroundColor = '';
+            });
+
+            excelDrop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                excelDrop.style.backgroundColor = '';
+                const files = e.dataTransfer.files;
+                const validTypes = [
+                    'application/vnd.ms-excel',
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                ];
+                if (files.length && validTypes.includes(files[0].type)) {
+                    const dt = new DataTransfer();
+                    dt.items.add(files[0]);
+                    excelInput.files = dt.files;
+                    handleFileChange('file-excel', 'excel-name');
+                    checkFiles();
+                } else {
+                    alert('Por favor, arrastra un archivo Excel válido (.xls o .xlsx).');
+                }
+            });
+
+            const numeroInformeInput = document.querySelector('input[name="numero_informe"]');
+            if (numeroInformeInput && "{{ session.get('numero_informe', '') }}" !== "") {
+                numeroInformeInput.value = "{{ session.get('numero_informe', '') }}";
+            }
+
+            const observacionesTextarea = document.querySelector('textarea[name="observaciones"]');
+            if (observacionesTextarea && "{{ session.get('observaciones', '') }}" !== "") {
+                observacionesTextarea.value = "{{ session.get('observaciones', '') }}";
+            }
+
+            checkFiles();
+
+            // Mostrar automáticamente secciones si están presentes
+            const generar = document.getElementById('generar-informe');
+            const generado = document.getElementById('informe-generado');
+
+            if (generar) {
+                generar.classList.remove('oculto');
+                generar.scrollIntoView({behavior: "smooth"});
+            }
+
+            if (generado) {
+                generado.classList.remove('oculto');
+                generado.scrollIntoView({behavior: "smooth"});
+            }
+        });
+    </script>
 </head>
 <body>
 <div class="sidebar">
-  <div class="logo">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Logo_Nuevo_Ufro.png/1043px-Logo_Nuevo_Ufro.png" width="150">
-  </div>
-  <button>AutoRen: automatizador de informe</button>
-  <a href="{{ url_for('logout') }}" class="exit">Salir</a>
+    <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Logo_Nuevo_Ufro.png/1043px-Logo_Nuevo_Ufro.png"
+             width="150">
+    </div>
+    <button>AutoRen: automatizador de informe</button>
+    <a href="{{ url_for('logout') }}" class="exit">Salir</a>
 </div>
 
 <div class="main">
-  <div class="top-bar">
-    <img src="https://bioren.ufro.cl/wp-content/uploads/2022/04/logo-BIOREN-UFRO-02.png" height="70">
-  </div>
-
-  <div class="intro">
-    <h2>AutoRen: automatizador de informe (Zetasizer)</h2>
-    <p>AutoRen es un automatizador de informes diseñado para BIOREN-UFRO. Facilita la gestión eficiente de datos de muestras, permitiendo a investigadores generar informes finales de manera rápida y sencilla.</p>
-    <p><strong>Instrucciones:</strong></p>
-    <ol>
-      <li>Arrastra o selecciona tus archivos Excel y PDF.</li>
-      <li>Haz clic en “Añadir al informe” para incluirlos en el informe final.</li>
-      <li>Descarga o guarda tu informe generado.</li>
-    </ol>
-    <p><strong>Arrastra los archivos</strong></p>
-  </div>
-
-  <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload_files') }}">
-    <div class="upload-section">
-      <div class="upload-container">
-        <label class="upload-box" for="file-pdf" id="pdf-drop">
-          <input type="file" id="file-pdf" name="file_pdf" accept=".pdf" hidden
-                 onchange="handleFileChange('file-pdf', 'pdf-name'); checkFiles()">
-          <div class="upload-label">Seleccionar PDF</div>
-        </label>
-        <div id="pdf-name" class="file-name">Archivo sin subir</div>
-        <button type="button" onclick="clearFile('file-pdf', 'pdf-name')">Quitar PDF</button>
-      </div>
-
-      <div class="upload-container">
-        <label class="upload-box" for="file-excel" id="word-drop">
-          <input type="file" id="file-excel" name="file_excel" accept=".xlsx,.xlsm,.xls" hidden
-                 onchange="handleFileChange('file-excel', 'excel-name'); checkFiles()">
-          <div class="upload-label">Seleccionar Excel</div>
-        </label>
-        <div id="excel-name" class="file-name">Archivo sin subir</div>
-        <button type="button" onclick="clearFile('file-excel', 'excel-name')">Quitar Excel</button>
-      </div>
+    <div class="top-bar">
+        <img src="https://bioren.ufro.cl/wp-content/uploads/2022/04/logo-BIOREN-UFRO-02.png" height="70">
     </div>
 
+    <div class="intro">
+        <h2>AutoRen: automatizador de informe (Zetasizer)</h2>
+        <p>AutoRen es un automatizador de informes diseñado para BIOREN-UFRO. Facilita la gestión eficiente de datos de
+            muestras, permitiendo a investigadores generar informes finales de manera rápida y sencilla.</p>
+        <p><strong>Instrucciones:</strong></p>
+        <ol>
+            <li>Arrastra o selecciona tus archivos Excel y PDF.</li>
+            <li>Haz clic en “Subir Archivos y Datos” para guardarlos en el sistema.</li>
+            <li>Una vez subidos, haz clic en “Generar Informe” para crear y descargar el informe final.</li>
+        </ol>
+        <p><strong>Arrastra los archivos</strong></p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('upload_files') }}">
+        <div class="upload-section">
+            <div class="upload-container">
+                <label class="upload-box" for="file-pdf" id="pdf-drop">
+                    <input type="file" id="file-pdf" name="file_pdf" accept=".pdf" hidden
+                           onchange="handleFileChange('file-pdf', 'pdf-name'); checkFiles()">
+                    <div class="upload-label">Seleccionar PDF</div>
+                </label>
+                <div id="pdf-name" class="file-name">Archivo sin subir</div>
+                <button type="button" onclick="clearFile('file-pdf', 'pdf-name')">Quitar PDF</button>
+            </div>
+
+            <div class="upload-container">
+                <label class="upload-box" for="file-excel" id="excel-drop">
+                    <input type="file" id="file-excel" name="file_excel" accept=".xlsx,.xlsm,.xls" hidden
+                           onchange="handleFileChange('file-excel', 'excel-name'); checkFiles()">
+                    <div class="upload-label">Seleccionar Excel</div>
+                </label>
+                <div id="excel-name" class="file-name">Archivo sin subir</div>
+                <button type="button" onclick="clearFile('file-excel', 'excel-name')">Quitar Excel</button>
+            </div>
+        </div>
+
         <label>Numero de Informe:</label><br>
-        <input type="text" name="numero_informe" required><br><br>
+        <input type="text" name="numero_informe" required value="{{ session.get('numero_informe', '') }}"><br><br>
 
         <label>Observaciones:</label><br>
-        <textarea name="observaciones" rows="4" cols="50"></textarea><br><br>
+        <textarea name="observaciones" rows="4" cols="50">{{ session.get('observaciones', '') }}</textarea><br><br>
 
-    <button id="submit-btn" class="upload-button" type="submit" disabled>Subir Archivos y Datos</button>
-  </form>
+        <button id="submit-btn" class="upload-button" type="submit" disabled>Subir Archivos y Datos</button>
+    </form>
 
-  <!--
-    
-  -->
-  {% if pdf_file and excel_file %}
-
-        <form method="POST" action="{{ url_for('generate_report') }}">
-            <button type="submit">Generar Informe</button>
-        </form>
-
-  {% endif %}
-
-  <!--
-  
-  -->
-  {% if session.generated_file %}
-        
-      <p>Informe Generado: {{ session.generated_file }}</p>
-      <a href="{{ url_for('download_report') }}">Descargar documento</a>
-  
-      {% endif %}
-
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-          <li>{{ message }}</li>
-        {% endfor %}
-      </ul>
+    {% if pdf_file and excel_file %}
+        <hr>
+        <div id="generar-informe" class="report-section oculto">
+            <h3>Generar Informe</h3>
+            <p>Los archivos han sido subidos correctamente. Ahora puedes generar el informe.</p>
+            <form method="POST" action="{{ url_for('generate_report') }}">
+                <button type="submit" class="generate-report-button">Generar Informe</button>
+            </form>
+        </div>
     {% endif %}
-  {% endwith %}
+
+    {% if session.generated_file %}
+        <hr>
+        <div id="informe-generado" class="report-section success-message oculto">
+            <h3>Informe Generado Exitosamente</h3>
+            <p>El informe ha sido generado. Puedes descargarlo haciendo clic en el siguiente enlace:</p>
+            <p class="generated-file-name">Informe: {{ session.generated_file }}</p>
+            <a href="{{ url_for('download_report') }}" class="download-link">Descargar documento</a>
+        </div>
+    {% endif %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 </div>
 </body>
 </html>
