@@ -3,7 +3,6 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx import Document
 
-
 def insert_element_after(paragraph, element):
     p = paragraph._p
     p.addnext(element._element)
