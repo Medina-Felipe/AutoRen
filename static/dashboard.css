@@ -1,293 +1,330 @@
 :root {
-  --blue: #003b8b;
-  --blue-light: #97a9c4;
-  --blue-hover: #8195b2;
-  --red: #e74c3c;
-  --red-dark: #c0392b;
-  --gray-disabled: #888;
-  --gray-text: #666;
-  --gray-bg: #d1d1d1;
-  --black: #000;
-  --black-hover: #333;
-  --green: #28a745;
-  --green-hover: #218838;
+    --blue: #003b8b;
+    --blue-light: #97a9c4;
+    --blue-hover: #8195b2;
+    --red: #e74c3c;
+    --red-dark: #c0392b;
+    --gray-disabled: #888;
+    --gray-text: #666;
+    --gray-bg: #d1d1d1;
+    --black: #000;
+    --black-hover: #333;
+    --green: #28a745;
+    --green-hover: #218838;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
-  height: 100%;
-  font-family: Arial, sans-serif;
-  background: #f7f7f7;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
 }
 
 /* Sidebar */
 .sidebar {
-  background: var(--blue);
-  width: 250px;
-  height: 100vh;
-  position: fixed;
-  top: 0; left: 0;
-  color: white;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0;
+    background: var(--blue);
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
 }
+
 .sidebar .logo {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
+
 .sidebar button,
 .sidebar .exit {
-  border: none;
-  border-radius: 20px;
-  font-weight: bold;
-  padding: 12px 20px;
-  margin: 10px 20px;
-  cursor: pointer;
-  transition: background 0.3s;
-  display: block;
-  text-align: center;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    padding: 12px 20px;
+    margin: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: block;
+    text-align: center;
 }
+
 .sidebar button {
-  background: white;
-  color: var(--blue);
+    background: white;
+    color: var(--blue);
 }
+
 .sidebar button:hover {
-  background: var(--gray-bg);
+    background: var(--gray-bg);
 }
+
 .sidebar .exit {
-  background: var(--red);
-  color: white;
-  margin-top: auto;
-  text-decoration: none;
+    background: var(--red);
+    color: white;
+    margin-top: auto;
+    text-decoration: none;
 }
+
 .sidebar .exit:hover {
-  background: var(--red-dark);
+    background: var(--red-dark);
 }
 
 /* Main area */
 .main {
-  margin-left: 250px;
-  background: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+    margin-left: 250px;
+    background: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Top Bar */
 .top-bar {
-  height: 110px;
-  background: var(--blue-light);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0 20px;
+    height: 110px;
+    background: var(--blue-light);
+    display: flex;
+    justify-content: space-between; /* Alinea elementos a los extremos */
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Estilo para el título en la top-bar */
+.top-bar-title {
+    color: var(--black); /* Color del texto del título */
+    margin: 0; /* Elimina márgenes predeterminados */
+    font-size: 24px; /* Mismo tamaño que antes */
 }
 
 /* Intro and report sections */
 .intro, .report-section {
-  background: white;
-  color: #333;
-  padding: 20px;
-  border-radius: 8px;
-  margin: 20px;
-  font-size: 14px;
-  animation: fadeIn 0.6s ease-in-out;
+    background: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px;
+    font-size: 14px;
+    animation: fadeIn 0.6s ease-in-out;
 }
+
 .intro h2, .report-section h3 {
-  color: var(--black);
-  margin-bottom: 10px;
+    color: var(--black);
+    margin-bottom: 10px;
 }
+
 .intro h2 {
-  font-size: 24px;
+    font-size: 24px;
 }
+
 .intro ol {
-  margin: 0 0 10px 20px;
+    margin: 0 0 10px 20px;
 }
+
 .report-section {
-  border: 1px solid var(--blue-light);
+    border: 1px solid var(--blue-light);
 }
+
 .report-section.success-message {
-  background-color: #e6ffe6;
-  border-color: var(--green);
-  color: var(--green-hover);
+    background-color: #e6ffe6;
+    border-color: var(--green);
+    color: var(--green-hover);
 }
+
 .report-section p {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
+
 .generated-file-name {
-  font-weight: bold;
-  color: var(--black);
+    font-weight: bold;
+    color: var(--black);
 }
 
 /* Fade in animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .oculto {
-  display: none !important;
+    display: none !important;
 }
 
 /* Upload section */
 .upload-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
-  margin-bottom: 20px;
-  padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+    padding: 0 20px;
 }
+
 .upload-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 .upload-box {
-  background: var(--blue-light);
-  width: 220px;
-  height: 150px;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  margin-bottom: 10px;
-  transition: background 0.3s, transform 0.2s;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: var(--blue-light);
+    width: 220px;
+    height: 150px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background 0.3s, transform 0.2s;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .upload-box:hover {
-  background: var(--blue-hover);
-  transform: translateY(-2px);
+    background: var(--blue-hover);
+    transform: translateY(-2px);
 }
+
 .upload-label {
-  font-weight: bold;
-  font-size: 16px;
-  color: var(--black);
-  user-select: none;
-  pointer-events: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--black);
+    user-select: none;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
+
 .file-name {
-  font-size: 14px;
-  color: var(--gray-text);
-  text-align: center;
-  min-height: 36px;
-  max-width: 200px;
-  word-break: break-word;
+    font-size: 14px;
+    color: var(--gray-text);
+    text-align: center;
+    min-height: 36px;
+    max-width: 200px;
+    word-break: break-word;
 }
+
 .file-name.selected {
-  color: green;
-  font-weight: bold;
+    color: green;
+    font-weight: bold;
 }
+
 .upload-container button {
-  background: var(--red);
-  border: none;
-  border-radius: 20px;
-  padding: 6px 12px;
-  font-size: 13px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 6px;
+    background: var(--red);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 6px;
 }
+
 .upload-container button:hover {
-  background: var(--red-dark);
+    background: var(--red-dark);
 }
 
 /* Forms */
 .main label {
-  display: block;
-  margin: 10px 20px 5px;
-  font-weight: bold;
-  color: var(--black);
+    display: block;
+    margin: 10px 20px 5px;
+    font-weight: bold;
+    color: var(--black);
 }
+
 .main input[type="text"],
 .main textarea {
-  width: calc(100% - 40px);
-  margin: 0 20px 10px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid var(--blue-light);
-  border-radius: 5px;
-  color: var(--gray-text);
-  font-family: inherit;
+    width: calc(100% - 40px);
+    margin: 0 20px 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--blue-light);
+    border-radius: 5px;
+    color: var(--gray-text);
+    font-family: inherit;
 }
+
 .main textarea {
-  resize: vertical;
-  min-height: 80px;
+    resize: vertical;
+    min-height: 80px;
 }
 
 /* Buttons */
 .upload-button,
 .generate-report-button {
-  border: none;
-  border-radius: 20px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-  margin: 20px;
-  cursor: pointer;
-  transition: background 0.3s;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    margin: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .upload-button {
-  background: var(--black);
+    background: var(--black);
 }
+
 .upload-button:hover {
-  background: var(--black-hover);
+    background: var(--black-hover);
 }
+
 .upload-button:disabled,
 .generate-report-button:disabled {
-  background: var(--gray-disabled);
-  cursor: not-allowed;
+    background: var(--gray-disabled);
+    cursor: not-allowed;
 }
+
 .generate-report-button {
-  background: var(--green);
+    background: var(--green);
 }
+
 .generate-report-button:hover {
-  background: var(--green-hover);
+    background: var(--green-hover);
 }
 
 /* Error messages */
 .messages {
-  margin: 20px;
-  padding: 10px;
-  background-color: #ffe6e6;
-  border: 1px solid var(--red);
-  border-radius: 5px;
-  color: red;
-  list-style: none;
+    margin: 20px;
+    padding: 10px;
+    background-color: #ffe6e6;
+    border: 1px solid var(--red);
+    border-radius: 5px;
+    color: red;
+    list-style: none;
 }
 
 /* Download link */
 .download-link {
-  display: inline-block;
-  margin-top: 10px;
-  color: var(--blue);
-  font-weight: bold;
-  text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--blue);
+    font-weight: bold;
+    text-decoration: none;
 }
+
 .download-link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
