@@ -1,3 +1,4 @@
+/* Variables para colores (puedes copiarlas de dashboard.css si quieres consistencia) */
 :root {
     --blue: #003b8b;
     --blue-light: #97a9c4;
@@ -303,17 +304,6 @@ html, body {
 
 .generate-report-button:hover {
     background: var(--green-hover);
-}
-
-/* Error messages */
-.messages {
-    margin: 20px;
-    padding: 10px;
-    background-color: #ffe6e6;
-    border: 1px solid var(--red);
-    border-radius: 5px;
-    color: red;
-    list-style: none;
 }
 
 /* Download link */
