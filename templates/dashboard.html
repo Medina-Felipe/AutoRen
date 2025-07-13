@@ -19,21 +19,27 @@
         function handleFileChange(inputId, labelId) {
             const input = document.getElementById(inputId);
             const label = document.getElementById(labelId);
+            const uploadBox = document.getElementById(inputId === 'file-pdf' ? 'pdf-drop' : 'excel-drop');
+
             if (input.files.length) {
                 label.textContent = `✅ Archivo seleccionado: ${input.files[0].name}`;
                 label.classList.add("selected");
+                uploadBox.classList.add("uploaded");
             } else {
                 label.textContent = "Archivo sin subir";
                 label.classList.remove("selected");
+                uploadBox.classList.remove("uploaded");
             }
         }
 
         function clearFile(inputId, labelId) {
             const input = document.getElementById(inputId);
             const label = document.getElementById(labelId);
+            const uploadBox = document.getElementById(inputId === 'file-pdf' ? 'pdf-drop' : 'excel-drop');
             input.value = '';
             label.textContent = "Archivo sin subir";
             label.classList.remove("selected");
+            uploadBox.classList.remove("uploaded");
             checkFiles();
         }
 
@@ -110,7 +116,7 @@
 
             checkFiles();
 
-            // Mostrar automáticamente secciones si están presentes
+            // Display sections automatically if present
             const generar = document.getElementById('generar-informe');
             const generado = document.getElementById('informe-generado');
 
@@ -122,6 +128,23 @@
             if (generado) {
                 generado.classList.remove('oculto');
                 generado.scrollIntoView({behavior: "smooth"});
+            }
+
+            // Loading overlay functionality
+            const uploadForm = document.querySelector('form[action="{{ url_for('upload_files') }}"]');
+            const generateForm = document.querySelector('form[action="{{ url_for('generate_report') }}"]');
+            const loadingOverlay = document.getElementById('loading-overlay');
+
+            if (uploadForm) {
+                uploadForm.addEventListener('submit', () => {
+                    loadingOverlay.classList.remove('oculto');
+                });
+            }
+
+            if (generateForm) {
+                generateForm.addEventListener('submit', () => {
+                    loadingOverlay.classList.remove('oculto');
+                });
             }
         });
     </script>
@@ -191,7 +214,7 @@
         <div id="generar-informe" class="report-section oculto">
             <h3>Generar Informe</h3>
             <p>Los archivos han sido subidos correctamente. Ahora puedes generar el informe.</p>
-            <form method="POST" action="{{ url_for('generate_report') }}">
+            <form method="POST" action="{{ url_for('generate_report') }}" class="generate-form-container">
                 <button type="submit" class="generate-report-button">Generar Informe</button>
             </form>
         </div>
@@ -207,17 +230,14 @@
         </div>
     {% endif %}
 
-    {# Bloque eliminado:
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    #}
+    <div class="footer">
+        <p>&copy; 2024 BIOREN-UFRO. Todos los derechos reservados.</p>
+    </div>
+</div>
+
+<div id="loading-overlay" class="loading-overlay oculto">
+    <div class="spinner"></div>
+    <p>Procesando...</p>
 </div>
 </body>
 </html>

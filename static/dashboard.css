@@ -1,4 +1,3 @@
-/* Variables para colores (puedes copiarlas de dashboard.css si quieres consistencia) */
 :root {
     --blue: #003b8b;
     --blue-light: #97a9c4;
@@ -26,6 +25,22 @@ html, body {
     background: #f7f7f7;
 }
 
+/* Base button and link styles */
+.sidebar button,
+.sidebar .exit,
+.upload-container button,
+.upload-button,
+.generate-report-button,
+.download-link {
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    display: inline-block; /* Default for non-flex icons */
+    text-align: center;
+}
+
 /* Sidebar */
 .sidebar {
     background: var(--blue);
@@ -47,15 +62,10 @@ html, body {
 
 .sidebar button,
 .sidebar .exit {
-    border: none;
-    border-radius: 20px;
     font-weight: bold;
     padding: 12px 20px;
     margin: 10px 20px;
-    cursor: pointer;
-    transition: background 0.3s;
-    display: block;
-    text-align: center;
+    display: block; /* Overrides inline-block for sidebar specific layout */
 }
 
 .sidebar button {
@@ -65,17 +75,30 @@ html, body {
 
 .sidebar button:hover {
     background: var(--gray-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar .exit {
     background: var(--red);
     color: white;
     margin-top: auto;
-    text-decoration: none;
 }
 
 .sidebar .exit:hover {
     background: var(--red-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar .exit:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Main area */
@@ -97,7 +120,7 @@ html, body {
     padding: 0 20px;
 }
 
-/* Estilo para el título en la top-bar */
+/* Top Bar Title */
 .top-bar-title {
     color: var(--black);
     margin: 0;
@@ -199,6 +222,22 @@ html, body {
     transform: translateY(-2px);
 }
 
+/* Upload box when file is uploaded */
+.upload-box.uploaded {
+    border: 2px solid var(--green);
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.3);
+}
+
+/* Upload label with checkmark */
+.upload-box.uploaded .upload-label::before {
+    content: '✓';
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 1.5em;
+    color: var(--green);
+    font-weight: bold;
+}
+
 .upload-label {
     font-weight: bold;
     font-size: 16px;
@@ -228,18 +267,19 @@ html, body {
 
 .upload-container button {
     background: var(--red);
-    border: none;
-    border-radius: 20px;
     padding: 6px 12px;
     font-size: 13px;
     color: white;
-    cursor: pointer;
-    transition: background 0.3s;
     margin-top: 6px;
 }
 
 .upload-container button:hover {
     background: var(--red-dark);
+    transform: scale(1.05);
+}
+
+.upload-container button:active {
+    transform: scale(0.98);
 }
 
 /* Forms */
@@ -262,26 +302,33 @@ html, body {
     font-family: inherit;
 }
 
+/* Required fields styling */
+.main input[required] {
+    border-left: 5px solid var(--red);
+    padding-left: 5px;
+}
+
+/* Focus effect for inputs and textareas */
+.main input[type="text"]:focus,
+.main textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 8px rgba(0, 59, 139, 0.3);
+}
+
 .main textarea {
     resize: vertical;
     min-height: 80px;
 }
 
-/* Buttons */
+/* Main action buttons (Upload and Generate) */
 .upload-button,
 .generate-report-button {
-    border: none;
-    border-radius: 20px;
     padding: 12px 24px;
     font-size: 16px;
     font-weight: bold;
     color: white;
     margin: 20px;
-    cursor: pointer;
-    transition: background 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .upload-button {
@@ -290,12 +337,22 @@ html, body {
 
 .upload-button:hover {
     background: var(--black-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.upload-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .upload-button:disabled,
 .generate-report-button:disabled {
     background: var(--gray-disabled);
     cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+    transform: none;
 }
 
 .generate-report-button {
@@ -304,17 +361,90 @@ html, body {
 
 .generate-report-button:hover {
     background: var(--green-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.generate-report-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Container for generate report form to align button left */
+.generate-form-container {
+    margin-left: -30px;
 }
 
 /* Download link */
 .download-link {
-    display: inline-block;
     margin-top: 10px;
     color: var(--blue);
     font-weight: bold;
-    text-decoration: none;
 }
 
 .download-link:hover {
     text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    width: 100%;
+    background-color: var(--blue);
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: auto;
+    font-size: 0.9em;
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.spinner {
+    border: 8px solid var(--blue-light);
+    border-top: 8px solid var(--blue);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+
+.loading-overlay p {
+    margin-top: 15px;
+    font-size: 1.2em;
+    color: var(--black);
+    font-weight: bold;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* General focus style for buttons and links acting as buttons */
+.sidebar button:focus,
+.sidebar .exit:focus,
+.upload-button:focus,
+.generate-report-button:focus,
+.upload-container button:focus,
+.download-link:focus {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 59, 139, 0.4);
 }
